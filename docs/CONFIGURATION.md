@@ -88,7 +88,7 @@ See [PASSKEYS.md](PASSKEYS.md) for the full setup guide.
 | `SMTP_PORT` | `587` | SMTP port |
 | `SMTP_USERNAME` | — | SMTP auth username |
 | `SMTP_PASSWORD` | — | SMTP auth password |
-| `SMTP_FROM` | `noreply@ninerlog.app` | Sender address |
+| `SMTP_FROM` | `noreply@ninerlog.com` | Sender address |
 
 ## Notifications
 

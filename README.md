@@ -1,5 +1,8 @@
 # NinerLog — Self-Hosted Deployment
 
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Images: GHCR](https://img.shields.io/badge/images-ghcr.io-2496ED)](https://github.com/fjaeckel?tab=packages&repo_name=ninerlog-dockerized)
+
 Run your own instance of [NinerLog](https://ninerlog.com), the EASA/FAA compliant pilot logbook.
 
 ## Quick Start
@@ -17,10 +20,10 @@ cp .env.example .env
 docker compose up -d
 
 # 4. Open NinerLog
-open http://localhost
+# Visit http://localhost in your browser
 ```
 
-The stack pulls pre-built images from GitHub Container Registry — no build step needed.
+The stack pulls pre-built, publicly available images from GitHub Container Registry — no login and no build step needed.
 
 ## What's Included
 
@@ -64,6 +67,8 @@ All configuration is done via environment variables in `.env`. See [docs/CONFIGU
 | `JWT_SECRET` | Secret key for access tokens (min. 32 chars) |
 | `REFRESH_SECRET` | Secret key for refresh tokens (min. 32 chars) |
 
+That's it for local, HTTP-only testing — `TLS_DOMAIN` is left empty and `CORS_ORIGIN` defaults to `http://localhost` in `.env.example`, so `docker compose up -d` serves plain HTTP on port 80 without any domain or certificate setup.
+
 ### For Production (HTTPS)
 
 | Variable | Description |
@@ -99,6 +104,6 @@ See [docs/UPGRADING.md](docs/UPGRADING.md) for version pinning and migration not
 
 ## License
 
-See the individual repositories for license information:
-- [ninerlog-api](https://github.com/fjaeckel/ninerlog-api)
-- [ninerlog-frontend](https://github.com/fjaeckel/ninerlog-frontend)
+This repository (deployment tooling) is [MIT licensed](LICENSE). The application code has its own licenses:
+- [ninerlog-api](https://github.com/fjaeckel/ninerlog-api) — AGPL-3.0
+- [ninerlog-frontend](https://github.com/fjaeckel/ninerlog-frontend) — MIT

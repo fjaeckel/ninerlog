@@ -81,7 +81,7 @@ services:
       SMTP_PORT: ${SMTP_PORT:-587}
       SMTP_USERNAME: ${SMTP_USERNAME:-}
       SMTP_PASSWORD: ${SMTP_PASSWORD:-}
-      SMTP_FROM: ${SMTP_FROM:-noreply@ninerlog.app}
+      SMTP_FROM: ${SMTP_FROM:-noreply@ninerlog.com}
 
       # Notification checker interval (default: 1h)
       NOTIFICATION_CHECK_INTERVAL: ${NOTIFICATION_CHECK_INTERVAL:-1h}
