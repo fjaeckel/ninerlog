@@ -1,6 +1,6 @@
 # NinerLog — Self-Hosted Deployment
 
-Run your own instance of [NinerLog](https://ninerlog.app), the EASA/FAA compliant pilot logbook.
+Run your own instance of [NinerLog](https://ninerlog.com), the EASA/FAA compliant pilot logbook.
 
 ## Quick Start
 
