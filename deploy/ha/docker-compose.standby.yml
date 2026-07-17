@@ -1,0 +1,72 @@
+# =============================================================================
+# NinerLog — HA overlay: STANDBY region
+# =============================================================================
+# Opt-in overlay for the warm-standby locality in an active-passive, two-region
+# deployment. Apply it explicitly, on the standby VM only.
+#
+# NORMAL OPERATION (primary is healthy) — Postgres streams from the primary as a
+# hot standby; the app tier stays dormant so the API's singleton scheduler never
+# runs twice (no duplicate notification emails / backup uploads). Bring up just
+# the replica + monitoring/backups:
+#
+#   docker compose \
+#     -f docker-compose.yml \
+#     -f deploy/ha/docker-compose.standby.yml \
+#     up -d
+#
+# FAILOVER (primary is down) — promote the replica, then start the app tier by
+# enabling the `failover` profile (see the runbook in docs/HA_SCALING.md):
+#
+#   docker compose \
+#     -f docker-compose.yml \
+#     -f deploy/ha/docker-compose.standby.yml \
+#     exec postgres pg_ctl promote -D "$PGDATA"
+#   docker compose \
+#     -f docker-compose.yml \
+#     -f deploy/ha/docker-compose.standby.yml \
+#     --profile failover up -d
+#   # ...then flip DNS to this region.
+# -----------------------------------------------------------------------------
+
+services:
+  # PostgreSQL as a streaming hot-standby, seeded from the primary via
+  # pg_basebackup on first boot. Same ssl `command:` and healthcheck as the
+  # base service — only the image (custom entrypoint) and env change.
+  postgres:
+    build:
+      context: ./scripts
+      dockerfile: Dockerfile.postgres-standby
+    environment:
+      # Where to replicate from — the primary's tailnet address.
+      PRIMARY_HOST: ${PRIMARY_HOST}
+      PRIMARY_PORT: ${PRIMARY_PORT:-5432}
+      REPLICATION_USER: ${REPLICATION_USER:-replicator}
+      REPLICATION_PASSWORD: ${REPLICATION_PASSWORD}
+      REPLICATION_SLOT: ${REPLICATION_SLOT:-standby_slot}
+
+  # Note: `postgres-exporter` and `db-backup` are intentionally left unchanged
+  # from the base stack, so they run by default alongside the replica —
+  # postgres-exporter keeps replication-lag metrics flowing while the app tier
+  # is dormant, and db-backup takes local pg_dump snapshots FROM the replica
+  # (both are read-only and supported against a hot standby).
+
+  # --- App tier: dormant until failover -------------------------------------
+  # These carry the `failover` profile, so a plain `up -d` on the standby does
+  # NOT start them. That keeps exactly one API (and therefore one scheduler)
+  # running across both regions. Enable with `--profile failover` after
+  # promoting the database.
+  api:
+    profiles: ["failover"]
+
+  frontend:
+    profiles: ["failover"]
+
+  nginx-exporter:
+    # Depends on frontend, which is failover-gated — gate this too so a normal
+    # `up -d` doesn't try to start it with no frontend to scrape.
+    profiles: ["failover"]
+
+  certbot:
+    # Can't complete an HTTP-01 challenge while this region is out of DNS.
+    # Use DNS-01 or tailnet cert-sync for the standby — see docs/HA_SCALING.md.
+    profiles: ["failover"]

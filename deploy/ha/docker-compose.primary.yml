@@ -1,0 +1,32 @@
+# =============================================================================
+# NinerLog — HA overlay: PRIMARY region
+# =============================================================================
+# Opt-in overlay for the read-write "primary" locality in an active-passive,
+# two-region deployment. It is NOT part of the default stack — apply it
+# explicitly, on the primary VM only:
+#
+#   docker compose \
+#     -f docker-compose.yml \
+#     -f deploy/ha/docker-compose.primary.yml \
+#     up -d
+#
+# What it changes vs. the base stack:
+#   * Publishes PostgreSQL :5432 on the primary's Tailscale IP ONLY, so the
+#     standby region can stream replication over the tailnet. Postgres is
+#     never bound to a public interface.
+#
+# Everything else (frontend, api, exporters, backups, certbot) is unchanged:
+# the primary is just the normal single-VM stack that also happens to feed a
+# replica. See docs/HA_SCALING.md for the full topology and the one-time
+# replication setup (scripts/pg-primary-setup.sh).
+# -----------------------------------------------------------------------------
+
+services:
+  postgres:
+    ports:
+      # Tailscale interface ONLY — never 0.0.0.0, never the public NIC.
+      # PRIMARY_TAILSCALE_IP is the primary VM's 100.x.y.z tailnet address.
+      # This is the ONLY door the standby's walreceiver and pg_basebackup use.
+      # Defense in depth: keep a Tailscale ACL that allows :5432 only from the
+      # standby node, and the host firewall closed on the public NIC.
+      - "${PRIMARY_TAILSCALE_IP}:5432:5432"

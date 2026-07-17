@@ -100,6 +100,7 @@ See [docs/UPGRADING.md](docs/UPGRADING.md) for version pinning and migration not
 - [Backups](docs/BACKUPS.md) — Automated database backups and restore
 - [Cloud Backups](docs/CLOUD_BACKUPS.md) — Per-user encrypted backups to pluggable cloud storage providers
 - [Monitoring](docs/MONITORING.md) — Private Prometheus scraping of the `/metrics` endpoint
+- [High Availability & Scaling](docs/HA_SCALING.md) — Two-region active-passive deployment with a Postgres read replica and DNS failover
 - [API Documentation](https://github.com/fjaeckel/ninerlog-api/blob/main/api-spec/openapi.yaml) — OpenAPI 3.1 specification
 
 ## License

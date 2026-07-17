@@ -1,0 +1,15 @@
+FROM postgres:18-alpine
+
+# Same base as Dockerfile.postgres (openssl for wire-encryption certs), but a
+# different entrypoint: this image seeds its data directory from the primary
+# via pg_basebackup on first boot, then runs as a streaming hot-standby.
+# Used only by the HA standby overlay — see deploy/ha/docker-compose.standby.yml
+# and docs/HA_SCALING.md.
+RUN apk add --no-cache openssl
+
+COPY pg-standby-entrypoint.sh /usr/local/bin/pg-standby-entrypoint.sh
+RUN chmod +x /usr/local/bin/pg-standby-entrypoint.sh
+
+ENTRYPOINT ["/usr/local/bin/pg-standby-entrypoint.sh"]
+# Default CMD (postgres + ssl flags) is supplied by the compose `command:`,
+# inherited from the base postgres service.
