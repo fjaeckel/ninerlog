@@ -1,16 +1,25 @@
-# NinerLog — Self-Hosted Deployment
+# NinerLog — Free, Open-Source Pilot Logbook for EASA & FAA Pilots
+
+**A modern digital pilot logbook you can actually own.** Log flights in seconds, track EASA and FAA currency automatically, get training flights signed by your instructor, and export everything whenever you want. Use the free hosted version at [app.ninerlog.com](https://app.ninerlog.com), or self-host the whole stack with one `docker compose up`.
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Images: GHCR](https://img.shields.io/badge/images-ghcr.io-2496ED)](https://github.com/fjaeckel?tab=packages&repo_name=ninerlog-dockerized)
+[![API: AGPL-3.0](https://img.shields.io/badge/API-AGPL--3.0-orange.svg)](https://github.com/fjaeckel/ninerlog-api)
+[![Images: GHCR](https://img.shields.io/badge/images-ghcr.io-2496ED)](https://github.com/fjaeckel?tab=packages&repo_name=ninerlog)
+[![Website](https://img.shields.io/badge/website-ninerlog.com-0EA5E9)](https://ninerlog.com)
+[![Self-hosted: Docker Compose](https://img.shields.io/badge/self--hosted-Docker%20Compose-2496ED)](https://ninerlog.com/self-hosted)
 
-Run your own instance of [NinerLog](https://ninerlog.com), the EASA/FAA compliant pilot logbook.
+[**Website**](https://ninerlog.com) · [**Launch the app**](https://app.ninerlog.com) · [**Self-hosting guide**](https://ninerlog.com/self-hosted) · [**Features**](https://ninerlog.com/features)
 
-## Quick Start
+---
+
+![NinerLog pilot logbook — flight logging](https://ninerlog.com/images/feature-flight-logging.png)
+
+## Quick Start (Docker Compose)
 
 ```bash
 # 1. Clone this repo
-git clone https://github.com/fjaeckel/ninerlog-dockerized.git
-cd ninerlog-dockerized
+git clone https://github.com/fjaeckel/ninerlog.git
+cd ninerlog
 
 # 2. Configure environment
 cp .env.example .env
@@ -23,7 +32,67 @@ docker compose up -d
 # Visit http://localhost in your browser
 ```
 
-The stack pulls pre-built, publicly available images from GitHub Container Registry — no login and no build step needed.
+The stack pulls pre-built, publicly available images from GitHub Container Registry — no login, no build step, no toolchain to install. For HTTPS with a real domain, see [docs/HTTPS.md](docs/HTTPS.md).
+
+## Screenshots
+
+| Quick Log — live block times | Currency tracking |
+|---|---|
+| ![Quick Log with live block times](https://ninerlog.com/images/feature-quick-log.png) | ![EASA and FAA currency tracking](https://ninerlog.com/images/feature-currency-tracking.png) |
+
+| Instructor signing | Flight search |
+|---|---|
+| ![Digital instructor signature on training flights](https://ninerlog.com/images/feature-instructor-signing.png) | ![Search across registration, type, airports and remarks](https://ninerlog.com/images/feature-search.png) |
+
+| Reports & statistics | Flying club admin |
+|---|---|
+| ![Flight hours reports and route maps](https://ninerlog.com/images/feature-reports.png) | ![Built-in admin panel for flying clubs](https://ninerlog.com/images/feature-flying-club.png) |
+
+## Features
+
+**Flight logging**
+- Quick entry templates — logging a flight is a 30-second habit
+- Block times, flight times, and advanced time splits
+- Day and night landings tracked separately
+- IFR approaches, holds, and instrument time
+- **Quick Log** — tap once at off-block, takeoff, landing, and on-block; the entry writes itself, with GPS airport detection and offline support
+
+**Licenses & currency**
+- Multi-license support — hold a PPL and an SPL, EASA and FAA, all at once
+- Flights count toward every applicable license and class rating automatically
+- Class ratings with expiry tracking (SEP, MEP, TMG, IR)
+- EASA revalidation rules (FCL.740) and FAA 90-day passenger currency (14 CFR 61.57)
+- Instrument currency with approach counting
+
+**Training**
+- Instructor signs on your phone after the debrief, or remotely via a secure link or QR code
+- Signing links expire on your terms (24 hours to 30 days)
+- Signed entries lock against edits; voiding leaves a documented audit trail
+
+**Your data**
+- Import from CSV and XLS with automatic field mapping
+- Export to CSV, PDF, and JSON, including EASA-compliant logbook PDF
+- Optional scheduled backups to any S3-compatible bucket **you** own
+- No vendor lock-in — ever
+
+**Search & reports**
+- One search box across registration, type, departure/arrival ICAO, and remarks
+- Stack date range, aircraft, airport, and pilot-function filters on top
+- Flight hours by aircraft type, period, and license; route maps and airport heatmaps
+
+**Security**
+- Passkey sign-in (Face ID, Touch ID, Windows Hello, hardware keys)
+- TOTP two-factor authentication with any standard authenticator app
+- Printable one-time recovery codes
+
+**Self-hosted extras**
+- Built-in admin panel — invite, enable, disable, and reset members without touching the database
+- Club-wide announcements pushed to members' dashboards
+- Every pilot keeps their own private logbook on your server
+
+**Everywhere**
+- Fully responsive — phone, tablet, desktop; no app install required
+- English and German, with more languages coming
 
 ## What's Included
 
@@ -35,7 +104,7 @@ The stack pulls pre-built, publicly available images from GitHub Container Regis
 | **Certbot** | `certbot/certbot:latest` | — |
 | **DB Backup** | Custom (Alpine + pg_dump) | — |
 
-## Architecture
+### Architecture
 
 ```
 ┌─────────────┐     ┌─────────────┐     ┌──────────────┐
@@ -102,8 +171,16 @@ See [docs/UPGRADING.md](docs/UPGRADING.md) for version pinning and migration not
 - [Monitoring](docs/MONITORING.md) — Private Prometheus scraping of the `/metrics` endpoint
 - [API Documentation](https://github.com/fjaeckel/ninerlog-api/blob/main/api-spec/openapi.yaml) — OpenAPI 3.1 specification
 
+## Repositories
+
+| Repository | Purpose | License |
+|------------|---------|---------|
+| [ninerlog](https://github.com/fjaeckel/ninerlog) (this repo) | Self-hosted deployment — Docker Compose, docs | MIT |
+| [ninerlog-api](https://github.com/fjaeckel/ninerlog-api) | Backend API (Go) | AGPL-3.0 |
+| [ninerlog-frontend](https://github.com/fjaeckel/ninerlog-frontend) | Web app (React PWA) | MIT |
+
 ## License
 
-This repository (deployment tooling) is [MIT licensed](LICENSE). The application code has its own licenses:
-- [ninerlog-api](https://github.com/fjaeckel/ninerlog-api) — AGPL-3.0
-- [ninerlog-frontend](https://github.com/fjaeckel/ninerlog-frontend) — MIT
+This repository — the deployment tooling, Compose files, and documentation — is [MIT licensed](LICENSE).
+
+The application itself is split across two repos with their own licenses: the [API](https://github.com/fjaeckel/ninerlog-api) is **AGPL-3.0**, and the [frontend](https://github.com/fjaeckel/ninerlog-frontend) is **MIT**. Running a self-hosted instance for yourself or your club is unrestricted; the AGPL obligations on the API apply if you offer a modified version of it over a network.
