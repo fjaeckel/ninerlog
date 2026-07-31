@@ -177,8 +177,23 @@ scrape_configs:
 **API** — see the API's
 [metrics reference](https://github.com/fjaeckel/ninerlog-api/blob/main/docs/METRICS.md)
 for the full list of exported series (HTTP, auth, database pool, notifications,
-email delivery, rate limiting, and Go runtime metrics), plus ready-to-import
-Grafana dashboards and Prometheus alerting rules.
+email delivery, rate limiting, airport database, and Go runtime metrics), plus
+ready-to-import Grafana dashboards and Prometheus alerting rules in
+[`docs/metrics/`](https://github.com/fjaeckel/ninerlog-api/tree/main/docs/metrics).
+
+Four dashboards ship with the API, all tagged `ninerlog` and cross-linked:
+
+| Dashboard | Use it for |
+|-----------|------------|
+| Overview (RED) | Request rate, errors, latency — the first place to look when the app feels slow |
+| Operational Health | Service health, DB pool, background jobs, email delivery, Go runtime |
+| Rate Limits | Whether users are being throttled, and what to set `SEARCH_RATE_LIMIT_PER_MINUTE` to |
+| Airport Database | Whether airport data is fresh and the upstream feeds are healthy |
+
+If users report that flight search intermittently returns nothing, check the
+Rate Limits dashboard first — the search limiter rejecting a slice of traffic
+looks exactly like that. See
+[CONFIGURATION.md](./CONFIGURATION.md#rate-limiting).
 
 **nginx** — the
 [nginx-prometheus-exporter](https://github.com/nginxinc/nginx-prometheus-exporter)
