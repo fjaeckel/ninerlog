@@ -181,7 +181,10 @@ email delivery, rate limiting, airport database, and Go runtime metrics), plus
 ready-to-import Grafana dashboards and Prometheus alerting rules in
 [`docs/metrics/`](https://github.com/fjaeckel/ninerlog-api/tree/main/docs/metrics).
 
-Four dashboards ship with the API, all tagged `ninerlog` and cross-linked:
+Four dashboards ship with the API, all tagged `ninerlog` and cross-linked. Each
+has a **Job** dropdown that defaults to `ninerlog-api` — if your Prometheus
+`job_name` differs, pick yours there rather than editing panels. (The alerting
+rules still hardcode `job="ninerlog-api"`; adjust that file by hand if needed.)
 
 | Dashboard | Use it for |
 |-----------|------------|
