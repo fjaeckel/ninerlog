@@ -65,6 +65,22 @@ See [PASSKEYS.md](PASSKEYS.md) for the full setup guide.
 | `GIN_MODE` | `release` | Gin framework mode: `debug`, `release`, `test` |
 | `LOG_LEVEL` | `info` | Log verbosity: `debug`, `info`, `warn`, `error` |
 
+## Rate Limiting
+
+Every `/api/v1` route is limited to 120 requests/minute per user, with tighter
+budgets on specific endpoints. Only the flight-search budget is tunable — the
+rest are fixed in the API.
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `SEARCH_RATE_LIMIT_PER_MINUTE` | `60` | Flight searches (`GET /flights?q=`) allowed per minute per user. Search is interactive — the UI issues a request per debounced keystroke and re-runs on every filter, sort, and page change — so this needs far more headroom than a one-shot export. Unparseable or non-positive values are ignored with a warning |
+| `DISABLE_RATE_LIMIT` | unset | Set to `true` to disable **all** rate limiting. For local development only — do not set this on an internet-facing deployment |
+
+Users being throttled shows up as HTTP 429s. If you run the Prometheus/Grafana
+stack, import the **NinerLog API — Rate Limits** dashboard from the API repo and
+watch the per-limiter rejection ratio before changing these; see
+[MONITORING.md](./MONITORING.md).
+
 ## App
 
 | Variable | Default | Description |
