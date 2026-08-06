@@ -58,6 +58,28 @@ See [PASSKEYS.md](PASSKEYS.md) for the full setup guide.
 | `WEBAUTHN_RP_NAME` | `NinerLog` | Human-readable name shown by the authenticator UI |
 | `WEBAUTHN_RP_ORIGINS` | falls back to `CORS_ORIGIN` | Comma-separated list of full origins (scheme + host + port) |
 
+## OIDC Single Sign-On
+
+Optional delegation of all authentication to an external OpenID Connect provider
+(Authentik, Keycloak, Authelia, Entra ID, Google, …). **Setting `OIDC_ISSUER` is a mode
+switch** — password login, registration, TOTP and passkeys are disabled while it is set.
+See [OIDC.md](OIDC.md) for the full setup and migration guide.
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `OIDC_ISSUER` | — | Provider issuer URL. **Setting it enables OIDC mode.** |
+| `OIDC_CLIENT_ID` | — | Client ID from the provider |
+| `OIDC_CLIENT_SECRET` | — | Client secret (confidential client) |
+| `OIDC_REDIRECT_URL` | — | `https://<your-domain>/api/v1/auth/oidc/callback` — must match the provider registration exactly |
+| `OIDC_POST_LOGIN_REDIRECT` | — | Frontend URL after login: `https://<your-domain>/auth/callback` |
+| `OIDC_PROVIDER_NAME` | `Single sign-on` | Label on the sign-in button |
+| `OIDC_SCOPES` | `openid profile email` | Extra scopes if the provider needs them for the email claim |
+| `OIDC_NAME_CLAIM` | `name` | ID-token claim used as the display name |
+| `OIDC_LINK_BY_VERIFIED_EMAIL` | `false` | Adopt existing local accounts by verified email on first OIDC login (migration only — see [OIDC.md](OIDC.md)) |
+| `OIDC_TRUST_EMAIL_VERIFIED` | `false` | Treat addresses as verified when the provider omits `email_verified` |
+| `OIDC_LOGIN_STATE_TTL` | `10m` | Window to complete a started login (Go duration) |
+| `OIDC_HANDOFF_TTL` | `60s` | Lifetime of the one-time post-login handoff code |
+
 ## Server
 
 | Variable | Default | Description |

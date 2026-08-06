@@ -84,6 +84,7 @@ The stack pulls pre-built, publicly available images from GitHub Container Regis
 - Passkey sign-in (Face ID, Touch ID, Windows Hello, hardware keys)
 - TOTP two-factor authentication with any standard authenticator app
 - Printable one-time recovery codes
+- Optional OIDC single sign-on with your own identity provider (Authentik, Keycloak, Entra ID, Google, …)
 
 **Self-hosted extras**
 - Built-in admin panel — invite, enable, disable, and reset members without touching the database
@@ -165,6 +166,7 @@ See [docs/UPGRADING.md](docs/UPGRADING.md) for version pinning and migration not
 - [Configuration Reference](docs/CONFIGURATION.md) — All environment variables
 - [HTTPS Setup](docs/HTTPS.md) — Let's Encrypt / TLS configuration
 - [Passkeys / WebAuthn](docs/PASSKEYS.md) — Enabling passwordless sign-in
+- [OIDC Single Sign-On](docs/OIDC.md) — Delegating all authentication to an external identity provider
 - [Upgrading](docs/UPGRADING.md) — Pulling new versions, migrations
 - [Backups](docs/BACKUPS.md) — Automated database backups and restore
 - [Cloud Backups](docs/CLOUD_BACKUPS.md) — Per-user encrypted backups to pluggable cloud storage providers
