@@ -70,6 +70,23 @@ services:
       WEBAUTHN_RP_NAME: ${WEBAUTHN_RP_NAME:-NinerLog}
       WEBAUTHN_RP_ORIGINS: ${WEBAUTHN_RP_ORIGINS:-}
 
+      # OIDC single sign-on (optional — leave OIDC_ISSUER empty to disable).
+      # WARNING: setting OIDC_ISSUER switches the whole server to OIDC mode —
+      # password login, registration, TOTP and passkeys are all disabled.
+      # See docs/OIDC.md before enabling.
+      OIDC_ISSUER: ${OIDC_ISSUER:-}
+      OIDC_CLIENT_ID: ${OIDC_CLIENT_ID:-}
+      OIDC_CLIENT_SECRET: ${OIDC_CLIENT_SECRET:-}
+      OIDC_REDIRECT_URL: ${OIDC_REDIRECT_URL:-}
+      OIDC_POST_LOGIN_REDIRECT: ${OIDC_POST_LOGIN_REDIRECT:-}
+      OIDC_PROVIDER_NAME: ${OIDC_PROVIDER_NAME:-}
+      OIDC_SCOPES: ${OIDC_SCOPES:-}
+      OIDC_NAME_CLAIM: ${OIDC_NAME_CLAIM:-}
+      OIDC_LINK_BY_VERIFIED_EMAIL: ${OIDC_LINK_BY_VERIFIED_EMAIL:-}
+      OIDC_TRUST_EMAIL_VERIFIED: ${OIDC_TRUST_EMAIL_VERIFIED:-}
+      OIDC_LOGIN_STATE_TTL: ${OIDC_LOGIN_STATE_TTL:-}
+      OIDC_HANDOFF_TTL: ${OIDC_HANDOFF_TTL:-}
+
       # Admin
       ADMIN_EMAIL: ${ADMIN_EMAIL:-}
 
