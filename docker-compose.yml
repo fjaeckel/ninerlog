@@ -158,7 +158,7 @@ services:
   # monitoring host via docker-compose.override.yml, exactly like the API.
   # See docs/MONITORING.md.
   nginx-exporter:
-    image: nginx/nginx-prometheus-exporter:1.4.2
+    image: nginx/nginx-prometheus-exporter:1.5.3
     container_name: ninerlog-nginx-exporter
     restart: unless-stopped
     depends_on:
@@ -177,7 +177,7 @@ services:
   # reveal it to your monitoring host via docker-compose.override.yml, exactly
   # like the API. See docs/MONITORING.md.
   postgres-exporter:
-    image: quay.io/prometheuscommunity/postgres-exporter:v0.17.1
+    image: quay.io/prometheuscommunity/postgres-exporter:v0.19.1
     container_name: ninerlog-postgres-exporter
     restart: unless-stopped
     depends_on:
