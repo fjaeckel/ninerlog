@@ -12,7 +12,10 @@
 
 ---
 
-![NinerLog pilot logbook — flight logging](https://ninerlog.com/images/feature-flight-logging.png)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://ninerlog.com/images/feature-flight-logging-dark.png">
+  <img alt="NinerLog pilot logbook — logging a flight" src="https://ninerlog.com/images/feature-flight-logging.png">
+</picture>
 
 ## Quick Start (Docker Compose)
 
@@ -36,33 +39,64 @@ The stack pulls pre-built, publicly available images from GitHub Container Regis
 
 ## Screenshots
 
+Every screenshot follows your theme — light and dark. The demo logbook they show is a small homage to the famous women of aviation: Amelia Earhart's flights, her Lockheed Vega and Electra, Neta Snook signing the training flight, and a Ninety-Nines member roster on the admin console.
+
+**Quick Log — a flight logs itself, one tap per milestone:**
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://ninerlog.com/images/demo-quicklog-dark.gif">
+  <img alt="Animated demo: picking an aircraft, then tapping off block, takeoff, landing and on block until the flight is logged" src="https://ninerlog.com/images/demo-quicklog.gif">
+</picture>
+
 | Quick Log — live block times | Currency tracking |
 |---|---|
-| ![Quick Log with live block times](https://ninerlog.com/images/feature-quick-log.png) | ![EASA and FAA currency tracking](https://ninerlog.com/images/feature-currency-tracking.png) |
+| <picture><source media="(prefers-color-scheme: dark)" srcset="https://ninerlog.com/images/feature-quick-log-dark.png"><img alt="Quick Log with live block times" src="https://ninerlog.com/images/feature-quick-log.png"></picture> | <picture><source media="(prefers-color-scheme: dark)" srcset="https://ninerlog.com/images/feature-currency-tracking-dark.png"><img alt="EASA and FAA currency tracking with custom currency rules" src="https://ninerlog.com/images/feature-currency-tracking.png"></picture> |
 
 | Instructor signing | Flight search |
 |---|---|
-| ![Digital instructor signature on training flights](https://ninerlog.com/images/feature-instructor-signing.png) | ![Search across registration, type, airports and remarks](https://ninerlog.com/images/feature-search.png) |
+| <picture><source media="(prefers-color-scheme: dark)" srcset="https://ninerlog.com/images/feature-instructor-signing-dark.png"><img alt="Digital instructor signature locking a training flight" src="https://ninerlog.com/images/feature-instructor-signing.png"></picture> | <picture><source media="(prefers-color-scheme: dark)" srcset="https://ninerlog.com/images/feature-search-dark.png"><img alt="Search across registration, type, airports and remarks" src="https://ninerlog.com/images/feature-search.png"></picture> |
 
 | Reports & statistics | Flying club admin |
 |---|---|
-| ![Flight hours reports and route maps](https://ninerlog.com/images/feature-reports.png) | ![Built-in admin panel for flying clubs](https://ninerlog.com/images/feature-flying-club.png) |
+| <picture><source media="(prefers-color-scheme: dark)" srcset="https://ninerlog.com/images/feature-reports-dark.png"><img alt="Flight hours reports, statistics and route maps" src="https://ninerlog.com/images/feature-reports.png"></picture> | <picture><source media="(prefers-color-scheme: dark)" srcset="https://ninerlog.com/images/feature-flying-club-dark.png"><img alt="Built-in admin console for flying clubs" src="https://ninerlog.com/images/feature-flying-club.png"></picture> |
+
+| Fleet insights | Custom currency rules |
+|---|---|
+| <picture><source media="(prefers-color-scheme: dark)" srcset="https://ninerlog.com/images/feature-fleet-dark.png"><img alt="Per-aircraft statistics, 90-day recency and logging defaults" src="https://ninerlog.com/images/feature-fleet.png"></picture> | <picture><source media="(prefers-color-scheme: dark)" srcset="https://ninerlog.com/images/feature-custom-currency-dark.png"><img alt="The custom currency rule builder with timeframe, filter and requirement blocks" src="https://ninerlog.com/images/feature-custom-currency.png"></picture> |
 
 ## Features
 
 **Flight logging**
-- Quick entry templates — logging a flight is a 30-second habit
-- Block times, flight times, and advanced time splits
-- Day and night landings tracked separately
-- IFR approaches, holds, and instrument time
 - **Quick Log** — tap once at off-block, takeoff, landing, and on-block; the entry writes itself, with GPS airport detection and offline support
+- Block times, flight times, and advanced time splits; day and night landings and takeoffs tracked separately
+- IFR in detail — actual and simulated instrument time, holds, and every approach with its type, airport and runway
+- Simulator/FSTD sessions recorded apart from flight time, exactly as AMC1 FCL.050 requires; passenger legs that count toward nothing
+- Off-airport sites — a farm strip or glacier without an ICAO code stays as the place name you typed
+- Auto-calculated: night time from real sunset/sunrise at your airports, day/night landing split, cross-country time, great-circle distance, and PIC/solo/SIC/dual-given from the crew list
+
+**Search**
+- One search box across registration, type, departure/arrival ICAO, remarks and names — partial matches count
+- Stack date range, aircraft, airport, and pilot-function filters on top; filters persist while you navigate
+- Pick your own flight-list columns; airport codes resolve to names from a 29,000+ airport database
 
 **Licenses & currency**
-- Multi-license support — hold a PPL and an SPL, EASA and FAA, all at once
-- Flights count toward every applicable license and class rating automatically
-- Class ratings with expiry tracking (SEP, MEP, TMG, IR)
-- EASA revalidation rules (FCL.740) and FAA 90-day passenger currency (14 CFR 61.57)
-- Instrument currency with approach counting
+- Multi-license support — hold a PPL and an SPL, EASA and FAA, all at once; flights count toward every applicable license and class rating automatically
+- Class ratings with expiry tracking (SEP, MEP, SET, TMG, IR)
+- EASA revalidation rules (FCL.740), FAA 90-day passenger currency (14 CFR 61.57), night currency, and the flight review (61.56)
+- Instrument currency with approach and hold counting, plus IPC tracking
+- 90-day recency per aircraft model and per registration
+- **Custom currency rules** — write your club's or insurer's rule in a block editor or as YAML, preview it against your real logbook, share it with a link, and get per-rule email reminders
+- Expiry warnings on the dashboard and email reminders at the days you choose
+
+**Credentials & people**
+- Medicals (EASA and FAA classes), ICAO language proficiency, radio certificates and security clearances, each with expiry reminders
+- Attach photos or PDFs of the actual documents
+- Instructors, safety pilots and passengers kept as contacts, linked to their flights, exportable as vCards
+
+**Fleet**
+- Per-aircraft statistics — hours, flights, landings, last flown, and the date recency lapses
+- Logging defaults per aircraft; complex, high-performance and tailwheel flags usable in custom rules
+- Re-register an aircraft and carry its logged flights across
 
 **Training**
 - Instructor signs on your phone after the debrief, or remotely via a secure link or QR code
@@ -70,30 +104,34 @@ The stack pulls pre-built, publicly available images from GitHub Container Regis
 - Signed entries lock against edits; voiding leaves a documented audit trail
 
 **Your data**
-- Import from CSV and XLS with automatic field mapping
-- Export to CSV, PDF, and JSON, including EASA-compliant logbook PDF
-- Optional scheduled backups to any S3-compatible bucket **you** own
+- Import from twelve formats, auto-detected — ForeFlight, LogTen Pro, MyFlightbook, capzlog.aero, FLYLOG.io, Wader, Vereinsflieger, SkyDemon, EASA and FAA layouts, and any other CSV or XLS with column mapping
+- Export CSV in three column sets, a full JSON backup, and a **signable PDF logbook** — EASA AMC1 FCL.050 or FAA §61.51 layout, A4/A5/Letter, book-style spreads with a signature line on every page
+- Prior-experience snapshot carries your paper logbook's closing totals into every running total and the PDF
+- Optional scheduled cloud backups to storage **you** own — any S3-compatible bucket, SFTP server or WebDAV share
 - No vendor lock-in — ever
 
-**Search & reports**
-- One search box across registration, type, departure/arrival ICAO, and remarks
-- Stack date range, aircraft, airport, and pilot-function filters on top
-- Flight hours by aircraft type, period, and license; route maps and airport heatmaps
+**Reports**
+- Your logbook in seven chapters — overview, experience, aircraft, places, instrument, patterns, and personal records
+- Career hours curve, role split by year, hours by type/registration/class, most-visited airports and routes
+- Route maps and an airport heatmap
 
 **Security**
 - Passkey sign-in (Face ID, Touch ID, Windows Hello, hardware keys)
 - TOTP two-factor authentication with any standard authenticator app
-- Printable one-time recovery codes
+- Printable one-time recovery codes, and a list of every signed-in device with one-click revocation
 - Optional OIDC single sign-on with your own identity provider (Authentik, Keycloak, Entra ID, Google, …)
 
 **Self-hosted extras**
-- Built-in admin panel — invite, enable, disable, and reset members without touching the database
+- Built-in admin console with seven tabs — dashboard, users, audit log, email, maintenance, announcements, configuration
+- Invite, enable, disable, unlock and reset members without touching the database; every pilot keeps their own private logbook
 - Club-wide announcements pushed to members' dashboards
-- Every pilot keeps their own private logbook on your server
+- Tamper-resistant audit log, email delivery status with suppression list, and a release update checker
 
 **Everywhere**
-- Fully responsive — phone, tablet, desktop; no app install required
-- English and German, with more languages coming
+- Progressive web app — phone, tablet, desktop; installs to your home screen, works offline where it counts
+- English and German, with more languages coming; light and dark themes
+- In-app help base with illustrated topics, and a replayable welcome tour
+- A documented OpenAPI spec with delta sync — the groundwork for anything you want to build yourself
 
 ## What's Included
 
