@@ -4,3 +4,6 @@ backups/
 # Local Docker Compose overrides (e.g. monitoring port bindings) — see docs/MONITORING.md
 docker-compose.override.yml
 docker-compose.override.yaml
+
+# Your Terms of Service / Privacy Policy (see docs/LEGAL.md)
+legal/

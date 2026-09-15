@@ -111,6 +111,8 @@ watch the per-limiter rejection ratio before changing these; see
 | `VITE_ENV` | `production` | Environment label |
 | `APP_NAME` | — | Custom application name |
 | `BETA_PASSWORD` | — | If set, registration requires this password |
+| `LEGAL_PATH` | `./legal` | Folder mounted into the frontend; `terms.md` / `privacy.md` in it are published to users — see [LEGAL.md](./LEGAL.md) |
+| `VITE_LEGAL_DOCS` | — | Overrides which documents are published (`terms`, `privacy` or `terms,privacy`); normally detected from the files |
 
 ## Admin
 
