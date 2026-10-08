@@ -129,6 +129,9 @@ services:
       VITE_API_BASE_URL: ${VITE_API_BASE_URL:-/api/v1}
       VITE_ENV: ${VITE_ENV:-production}
       VITE_APP_NAME: ${APP_NAME:-${VITE_APP_NAME:-}}
+      # Legal documents are detected from the ./legal mount below; set this
+      # only to override the detection (e.g. "terms"). See docs/LEGAL.md.
+      VITE_LEGAL_DOCS: ${VITE_LEGAL_DOCS:-}
       BETA_PASSWORD: ${BETA_PASSWORD:-}
       TLS_DOMAIN: ${TLS_DOMAIN}
     ports:
@@ -143,6 +146,8 @@ services:
       - letsencrypt_certs:/etc/letsencrypt:ro
       # ACME challenge webroot (shared with certbot container)
       - certbot_webroot:/var/www/certbot:ro
+      # Terms of Service / Privacy Policy as Markdown (optional) — see docs/LEGAL.md
+      - ${LEGAL_PATH:-./legal}:/usr/share/nginx/html/legal:ro
     networks:
       - ninerlog-network
     healthcheck:

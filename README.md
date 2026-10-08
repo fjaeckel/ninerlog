@@ -205,6 +205,7 @@ See [docs/UPGRADING.md](docs/UPGRADING.md) for version pinning and migration not
 - [HTTPS Setup](docs/HTTPS.md) — Let's Encrypt / TLS configuration
 - [Passkeys / WebAuthn](docs/PASSKEYS.md) — Enabling passwordless sign-in
 - [OIDC Single Sign-On](docs/OIDC.md) — Delegating all authentication to an external identity provider
+- [Terms of Service & Privacy Policy](docs/LEGAL.md) — Publishing your own legal documents to your users
 - [Upgrading](docs/UPGRADING.md) — Pulling new versions, migrations
 - [Backups](docs/BACKUPS.md) — Automated database backups and restore
 - [Cloud Backups](docs/CLOUD_BACKUPS.md) — Per-user encrypted backups to pluggable cloud storage providers
